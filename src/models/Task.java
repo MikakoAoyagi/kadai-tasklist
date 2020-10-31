@@ -7,20 +7,28 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
 @Entity
-@Table(name= "tasks")
-public class tasks {
+@NamedQueries({
+    @NamedQuery(
+            name = "getAllTasks",
+            query = "SELECT m FROM Task AS m ORDER BY m.id DESC"
+            )
+})
+@Table(name = "tasks")
+public class Task {
     @Id
-    @Column(name="id")
+    @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(name="created_at", nullable=false)
+    @Column(name = "created_at", nullable = false)
     private Timestamp created_at;
 
-    @Column(name="update_at", nullable=false)
+    @Column(name = "updated_at", nullable = false)
     private Timestamp updated_at;
 
     @Column(name = "content", length = 255, nullable = false)
@@ -33,6 +41,7 @@ public class tasks {
     public void setId(Integer id) {
         this.id = id;
     }
+
 
     public Timestamp getCreated_at() {
         return created_at;
