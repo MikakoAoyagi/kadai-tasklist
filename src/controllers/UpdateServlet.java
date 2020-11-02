@@ -37,8 +37,8 @@ public class UpdateServlet extends HttpServlet {
             EntityManager em = DBUtil.createEntityManager();
 
             // セッションスコープからメッセージのIDを取得して
-            // 該当のIDのメッセージ1件のみをデータベースから取得
-            Task t = em.find(Task.class, (Integer)(request.getSession().getAttribute("task_id")));
+            // 該当のIDのコンテンツ1件のみをデータベースから取得
+            Task t = em.find(Task.class, (Integer)(request.getSession().getAttribute("tasks_id")));
 
             // フォームの内容を各フィールドに上書き
             String content = request.getParameter("content");
@@ -53,7 +53,7 @@ public class UpdateServlet extends HttpServlet {
             em.close();
 
             // セッションスコープ上の不要になったデータを削除
-            request.getSession().removeAttribute("task_id");
+            request.getSession().removeAttribute("tasks_id");
 
             // indexページへリダイレクト
             response.sendRedirect(request.getContextPath() + "/index");
